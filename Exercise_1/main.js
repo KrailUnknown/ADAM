@@ -26,7 +26,8 @@ customElements.define('data-vis', class DataVis extends HTMLElement {
     }
 
     #connectDataLoaderFunction() {
-        if(this.dataLoaderAttr === undefined) {
+        console.log(this.dataLoaderAttr)
+        if(this.dataLoaderAttr === null) {
             throw '"data-vis" element requires "dataLoader" attribute to be set'
         }
 
