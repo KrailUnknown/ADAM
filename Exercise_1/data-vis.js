@@ -1,9 +1,4 @@
-
-// Delay func for simulating data loading process
-const delay = ms => new Promise(res => setTimeout(res, ms));
-
-
-class DataVis extends HTMLElement {
+export class DataVis extends HTMLElement {
     static get attrNames() {
         return {
             dataLoader: 'dataloader'
@@ -13,8 +8,8 @@ class DataVis extends HTMLElement {
     static loadingClassName = "loading";
     static stylesheet = `
         .plot-space {
-            height: 100px;
-            width: 100px;
+            height: 500px;
+            width: 100%;
             /*display: block;*/
             border: 1px black dashed;
             display: flex;
@@ -164,8 +159,7 @@ class DataVis extends HTMLElement {
 
 
     #connectDataLoaderFunction() {
-        console.log(this.dataLoaderAttr)
-        if(this.dataLoaderAttr === null) {
+        if(this.dataLoaderAttr === "") {
             this.displayError(
                 'Attribute error',
                 '"data-vis" element requires "dataLoader" attribute to be set'
@@ -183,68 +177,4 @@ class DataVis extends HTMLElement {
 
         this.dataLoaderFn = fn;
     }
-
-
-}
-
-
-
-class ScatterPlot extends DataVis {
-    constructor() {
-        super()
-    }
-
-    async validateData() {
-        let data = await this.dataLoaderFn();
-
-        let dataIsValid = (
-            Array.isArray(data) &&
-            data.length === 2
-        );
-
-        if(dataIsValid) {
-            this.data = data;
-        } else {
-            this.displayError(
-                'Data format error',
-                'data loader function returns data in invalid format'
-            );
-        }
-    }
-
-
-    analyzeAndVisualizeData() {
-        this.plotSpace.innerHTML = this.data;
-    }
-}
-
-window.customElements.define('scatter-plot', ScatterPlot);
-
-
-
-
-
-
-async function getValidData() {
-    await delay(5000);
-
-    return [
-        [1,2,3],
-        [4,5,6]
-    ];
-}
-
-async function getInvalidData() {
-    await delay(5000);
-
-    return [
-        [1,2,3]
-    ];
-}
-
-function syncFn() {
-    return [
-        [1,2,3],
-        [4,5,6]
-    ];
 }
