@@ -26,14 +26,24 @@ class ScatterPlot extends DataVis {
 
 
     analyzeAndVisualizeData() {
-        Plotly.newPlot(this.plotSpace, /* JSON object */ {
-            "data": [{
-                x: this.data.x,
-                y: this.data.y,
-                type: 'scatter'
-            }],
+        let data = [{
+            x: this.data.x,
+            y: this.data.y,
+            type: 'scatter'
+        }];
 
-        })
+        let layout = {
+            title: 'Scatter plot example',
+            // showLegend: false
+        }
+
+        let config = {
+            scrollZoom: true,
+            displayModeBar: false,
+        }
+
+
+        Plotly.newPlot(this.plotSpace, data, layout, config);
         // this.plotSpace.innerHTML = this.data;
     }
 }
@@ -42,33 +52,3 @@ class ScatterPlot extends DataVis {
 window.addEventListener('load', () => {
     window.customElements.define('scatter-plot', ScatterPlot);
 })
-
-
-// Delay func for simulating data loading process
-const delay = ms => new Promise(res => setTimeout(res, ms));
-
-
-
-window.getValidData = async () => {
-    await delay(1000);
-
-    return {
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 15, 13, 17],
-    };
-}
-
-window.getInvalidData = async () => {
-    await delay(2000);
-
-    return [
-        [1,2,3]
-    ];
-}
-
-window.syncFn = () => {
-    return [
-        [1,2,3],
-        [4,5,6]
-    ];
-}
