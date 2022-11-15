@@ -29,7 +29,9 @@ class ScatterPlot extends DataVis {
         let data = [{
             x: this.data.x,
             y: this.data.y,
-            type: 'scatter'
+            type: 'scatter',
+            mode: 'markers',
+            marker: { size: 12 }
         }];
 
         let layout = {
