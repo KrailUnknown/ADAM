@@ -1,3 +1,4 @@
+// TO RUN WITHOUT A SERVER: Remove "export" statement
 export class DataVis extends HTMLElement {
     static get attrNames() {
         return {
